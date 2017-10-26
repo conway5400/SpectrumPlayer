@@ -12,4 +12,4 @@ def alexa(request):
     return HttpResponse('Alexa works!')
 
 def health(request):
-    return HttpResponse(200)
+    return HttpResponse(status = 200)

@@ -28,7 +28,6 @@ DEBUG = False
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['54.227.229.97', 'www.conwaysolomon.com']
-# ALLOWED_HOSTS = ['*']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
