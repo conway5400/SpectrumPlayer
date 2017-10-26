@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" media="screen" title="no title"  charset="utf-8">
+    <script src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+    <script src="{% static 'js/script.js' %}"></script>
+</html>
