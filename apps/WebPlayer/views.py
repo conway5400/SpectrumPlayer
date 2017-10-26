@@ -10,3 +10,6 @@ def index(request):
 def alexa(request):
     print 'woooohhooooo'
     return HttpResponse('Alexa works!')
+
+def health(request):
+    return HttpResponse(200)
