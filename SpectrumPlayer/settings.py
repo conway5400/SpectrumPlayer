@@ -27,7 +27,7 @@ SECRET_KEY = 'id1u(_lx1gx5-^rd(c51a0d$sxuzs7fcwvkxiij(2ci4dx7g$d'
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['54.227.229.97', 'www.conwaysolomon.com']
+ALLOWED_HOSTS = ['*', '54.227.229.97', 'www.conwaysolomon.com', '172.31.80.0']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
