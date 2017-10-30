@@ -13,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
 
 import json
+
+monthsFromServer = []
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
@@ -45,7 +47,7 @@ def build_response(session_attributes, speechlet_response):
     }
 
     responseJson = json.dumps(responseObject)
-   
+
     return HttpResponse(responseJson)
 
 
@@ -133,6 +135,21 @@ def get_color_from_session(intent, session):
         intent['name'], speech_output, reprompt_text, should_end_session))
 
 
+def saveToServer(intent, session):
+    session_attributes = {}
+    reprompt_text = None
+
+    if 'month' in intent['slots']:
+        monthIntent = intent['slots']['month']['value']
+        monthsFromServer.append(monthIntent)
+
+    speech_output = "Saved your favorte month to the server." 
+    should_end_session = True
+
+    return build_response(session_attributes, build_speechlet_response(
+        intent['name'], speech_output, reprompt_text, should_end_session))
+
+
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
@@ -166,7 +183,9 @@ def on_intent(intent_request, session):
     if intent_name == "MyColorIsIntent":
         return set_color_in_session(intent, session)
     elif intent_name == "WhatsMyColorIntent":
-        return get_color_from_session(intent, session)
+        return get_color_from_session(intent, session)    
+    elif intent_name == "PrintToServer":
+        return saveToServer(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

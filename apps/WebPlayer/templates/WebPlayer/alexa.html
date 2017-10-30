@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "./base.html" %}
+{% block title %}WebPlayer{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Welcome to the Alexa Colors Page! Showing all months.</h1>
+
+    {% for month in months %}
+        
+        <h3>{{ month }}</h3>
+
+    {% endfor %}
+</div>
+
+<script>
+
+    function getUpdates() {
+        console.log('refreshing')
+        location.reload();
+        setTimeout(getUpdates, 1000)
+    }
+
+    getUpdates()
+
+</script>
+{% endblock %}
