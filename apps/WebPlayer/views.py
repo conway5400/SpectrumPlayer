@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
+import json
 from alexa import monthsFromServer
 
 colors = ['red', 'blue', 'green']
@@ -19,6 +19,9 @@ def alexa(request):
 
 def health(request):
     return HttpResponse(status = 200)
+
+def updates(request):
+    return HttpResponse(json.dumps(monthsFromServer))
 
 def showAlexa(request):
     print monthsFromServer

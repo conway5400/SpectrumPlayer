@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^alexa$', views.alexa),
     url(r'^showAlexa$', views.showAlexa),
     url(r'^health$', views.health),
+    url(r'^updates$', views.updates),
     url(r'^alexaBeta$', alexa.incomingRoute),
 ]

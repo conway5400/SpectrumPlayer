@@ -6,18 +6,28 @@
 <div class="container">
     <h1>Welcome to the Alexa Colors Page! Showing all months.</h1>
 
-    {% for month in months %}
+<!--     {% for month in months %}
         
         <h3>{{ month }}</h3>
 
-    {% endfor %}
+    {% endfor %} -->
+
+    <div id="alexa">
+    </div>
 </div>
 
 <script>
 
     function getUpdates() {
+
         console.log('refreshing')
-        location.reload();
+
+        $.get( "/updates", function( data ) {
+          console.log(data)
+          $('#alexa').html(data)
+          // alert( "Load was performed." );
+        });
+        // location.reload();
         setTimeout(getUpdates, 1000)
     }
 
