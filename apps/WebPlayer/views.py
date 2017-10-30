@@ -5,8 +5,7 @@ from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from alexa import monthsFromServer
-
-colors = ['red', 'blue', 'green']
+from models import Request
 
 # Create your views here.
 def index(request):
@@ -21,7 +20,13 @@ def health(request):
     return HttpResponse(status = 200)
 
 def updates(request):
-    return HttpResponse(json.dumps(monthsFromServer))
+    userCommands = Request.objects.order_by('-createdAt')
+    if userCommands:
+        lastCommand = userCommands[0].command
+        userCommands.delete()
+        return HttpResponse(lastCommand)
+    else:
+        return HttpResponse(None)
 
 def showAlexa(request):
     print monthsFromServer

@@ -5,7 +5,8 @@ var element = document.querySelector("#player")
 var player = dashjs.MediaPlayer().create();
 var checkForUpdates = true;
 
-player.initialize(element, url, true);
+player.initialize(element, url, false);
+
 
 $('#play').on('click', function() {
     player.play();
@@ -17,19 +18,19 @@ $('#pause').on('click', function() {
     player.pause();
 });
 
-$('#enableMonitoring').on('click', function() {
-    checkForUpdates = true;
-});
-
-$('#disableMonitoring').on('click', function() {
-    checkForUpdates = false;
-});
-
-
-
 function checkUpdates() {
     if(checkForUpdates) {
         console.log('checking for updates')
-        setTimeout(checkUpdates, 1000);
+
+        $.get( "/updates", function( command ) {
+
+            if(command == 'play') {
+                player.play();
+            } else if (command == 'pause') {
+                player.pause();
+            }
+
+            setTimeout(checkUpdates, 1000)
+        });
     }
 }

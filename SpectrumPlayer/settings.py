@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'id1u(_lx1gx5-^rd(c51a0d$sxuzs7fcwvkxiij(2ci4dx7g$d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*', '54.227.229.97', 'www.conwaysolomon.com', '172.31.80.0']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*', '54.227.229.97', 'www.conwaysolomon.com', '172.31.80.0']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True

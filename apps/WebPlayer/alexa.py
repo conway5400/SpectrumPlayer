@@ -11,6 +11,8 @@ from __future__ import print_function
 from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, HttpResponse
+from models import Request
+
 
 import json
 
@@ -149,6 +151,31 @@ def saveToServer(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
+def playVideo():
+    lastServerCommand = 'play'
+
+    session_attributes = {}
+    reprompt_text = None
+    speech_output = "Playing video." 
+    should_end_session = True
+
+    Request.objects.create(command = 'play')
+
+    return build_response(session_attributes, build_speechlet_response(
+        'playing', speech_output, reprompt_text, should_end_session))
+
+def pauseVideo():
+
+    session_attributes = {}
+    reprompt_text = None
+    speech_output = "Pausing video." 
+    should_end_session = True
+
+    Request.objects.create(command = 'pause')
+
+    return build_response(session_attributes, build_speechlet_response(
+        'paused', speech_output, reprompt_text, should_end_session))
+
 
 # --------------- Events ------------------
 
@@ -185,7 +212,11 @@ def on_intent(intent_request, session):
     elif intent_name == "WhatsMyColorIntent":
         return get_color_from_session(intent, session)    
     elif intent_name == "PrintToServer":
-        return saveToServer(intent, session)
+        return saveToServer(intent, session)    
+    elif intent_name == "PlayVideo":
+        return playVideo()    
+    elif intent_name == "PauseVideo":
+        return pauseVideo()
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
