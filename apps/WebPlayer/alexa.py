@@ -11,12 +11,14 @@ from __future__ import print_function
 from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, HttpResponse
-from models import Request
+from models import Request, User
 
 
 import json
 
 monthsFromServer = []
+user = None;
+
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
@@ -151,8 +153,7 @@ def saveToServer(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
-def playVideo():
-    lastServerCommand = 'play'
+def playVideo(intent, session):
 
     session_attributes = {}
     reprompt_text = None
@@ -160,11 +161,12 @@ def playVideo():
     should_end_session = True
 
     Request.objects.create(command = 'play')
+    # Request.objects.create(user = user, command = 'play')
 
     return build_response(session_attributes, build_speechlet_response(
         'playing', speech_output, reprompt_text, should_end_session))
 
-def pauseVideo():
+def pauseVideo(intent, session):
 
     session_attributes = {}
     reprompt_text = None
@@ -172,6 +174,7 @@ def pauseVideo():
     should_end_session = True
 
     Request.objects.create(command = 'pause')
+    # Request.objects.create(user = user, command = 'pause')
 
     return build_response(session_attributes, build_speechlet_response(
         'paused', speech_output, reprompt_text, should_end_session))
@@ -214,9 +217,9 @@ def on_intent(intent_request, session):
     elif intent_name == "PrintToServer":
         return saveToServer(intent, session)    
     elif intent_name == "PlayVideo":
-        return playVideo()    
+        return playVideo(intent, session)    
     elif intent_name == "PauseVideo":
-        return pauseVideo()
+        return pauseVideo(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -257,9 +260,15 @@ def incomingRoute(request):
     prevent someone else from configuring a skill that sends requests to this
     function.
     """
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
-    #     raise ValueError("Invalid Application ID")
+    if (event['session']['application']['applicationId'] !=
+            "amzn1.ask.skill.186f3f09-605f-430a-901f-5040c73ce2e8"):
+        raise ValueError("Invalid Application ID")
+
+    amazonUserId = event['session']['user']['userId']
+
+    user = User.objects.getUser(amazonUserId)
+
+    print (user)
 
     if event['session']['new']:
         on_session_started({'requestId': event['request']['requestId']},

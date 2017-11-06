@@ -1,0 +1,64 @@
+{% extends "./base.html" %}
+{% block title %}WebPlayer{% endblock %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/stylesheetBeta.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <h1>You're cooking {{ results.name }}!</h1>   
+        </div>
+        <div class="currentTime">
+            <h1>5:30PM</h1>
+        </div>
+    </div>
+    <div class="body">
+        <div class="topBody">
+            <div class="activityCards card">
+                <h2>Activity Cards</h2>
+            </div>
+            <div class="videoWindow card">
+                <video id="player"></video>
+            </div>
+            <div class="ingredients card">
+                <h2>Ingredients</h2>
+            </div>
+        </div>
+        <div class="bottomBody">
+            <div class="previousStep card">
+                <h2>Previous Step</h2>
+                <h3></h3>
+            </div>
+            <div class="currentStep card">
+                <h2>Current Step</h2>
+                <h3></h3>
+                
+            </div>
+            <div class="nextStep card">
+                <h2>Next Step</h2>
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="title">
+            <h1>Progress Meter: Prepping ... Cooking ... Serving</h1>   
+        </div>
+        <div class="endTime">
+            <h1>6:30PM</h1>
+        </div>
+    </div>    
+</div>
+
+<script src="{% static 'js/cooking.js' %}"></script>
+
+<script type="text/javascript">
+    
+    setTutorialId({{ results.id }})
+
+</script>
+
+{% endblock %}

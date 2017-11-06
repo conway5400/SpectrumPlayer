@@ -16,6 +16,14 @@ $('#pause').on('click', function() {
     player.pause();
 });
 
+$('#enterFullScreen').on('click', function() {
+    element.requestFullscreen();
+});
+
+$('#exitFullScreen').on('click', function() {
+    element.exitFullscreen();
+});
+
 function checkUpdates() {
     if(checkForUpdates) {
         console.log('checking for updates')
@@ -27,13 +35,17 @@ function checkUpdates() {
                         player.play();
                     } else if (command == 'pause') {
                         player.pause();
+                    } else if (command == 'enter full screen') {
+                        element.requestFullscreen();
+                    } else if (command == 'exit full screen') {
+                        element.exitFullscreen();
                     }
-                    $('#connectionStatus').html('Connected!');
+                    $('#connectionStatus').html('Connected to Server!');
                     setTimeout(checkUpdates, 1000)
                 });
             } catch (error) {
                 checkForUpdates = false;
-                $('#connectionStatus').html('Error connecting!');
+                $('#connectionStatus').html('Error connecting to Server!');
                 console.error('there was an error! abandoning ship!')
             }
     }

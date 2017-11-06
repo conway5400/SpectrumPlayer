@@ -26,7 +26,7 @@ SECRET_KEY = 'id1u(_lx1gx5-^rd(c51a0d$sxuzs7fcwvkxiij(2ci4dx7g$d'
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['www.conwaysolomon.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -38,6 +38,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 INSTALLED_APPS = [
     'apps.WebPlayer',
+    'apps.API',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

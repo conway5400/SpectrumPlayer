@@ -3,14 +3,23 @@
 {% block title %}WebPlayer{% endblock %}
 {% block content %}
 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" media="screen" title="no title"  charset="utf-8">
+
 <div class="container">
-    <h2>You've succesfully launched and set up your project SpectrumPlayer!</h2>
-    <h3>You've also launched and set up your first app, WebPlayer!</h3>
+    <h2>Welcome to the Spectrum / Alexa Video Player!</h2>
+    <h4>To get started, just say "Alexa, tell Spectrum to play video."</h4>
     <video id="player"></video>
     <br/>
     <button id="play">PLAY</button>
     <button id="pause">PAUSE</button>
+    <br/>    
+    <button id="enterFullScreen">ENTER FULL SCREEN</button>
+    <button id="exitFullScreen">EXIT FULL SCREEN</button>
     <h4 id="connectionStatus">Waiting to connect....</h4>
 </div>
+
+<script src="{% static 'js/script.js' %}"></script>
 
 {% endblock %}
