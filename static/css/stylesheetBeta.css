@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial;
+}
+
+h1 {
+    font-size: 50pt;
+    line-height: 100px;
+    color: white;
+}
+
+h2 {
+    font-size: 35pt;
+    text-align: center;
+    /*text-decoration: underline;*/
+}
+
+h3 {
+    margin-top: 5px;
+    font-size: 25pt;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+h4 {
+    font-size: 20px;
+    text-align: left;
+}
+
+video {
+   width: 100%;
+   height: 100%;
+   border-radius: 10px;
+}
+
+button {
+    width: 250px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.card {
+    border-radius: 10pt;
+    -webkit-box-shadow: 11px 15px 64px -15px rgba(0,0,0,0.65);
+    -moz-box-shadow: 11px 15px 64px -15px rgba(0,0,0,0.65);
+    box-shadow: 11px 15px 64px -15px rgba(0,0,0,0.65);
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.container {
+    width: 1870px;
+    height: 1080px;
+    /*background: skyblue;*/
+    padding: 0px 25px;
+    background: #457fca;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #5691c8, #457fca);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #5691c8, #457fca); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+
+}
+
+.header {
+    height: 100px;
+    width: 100%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.title {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+}
+
+.currentTime {
+    width: 250px;
+    position: absolute;
+    left: 1660px;
+    top: 0px;
+}
+
+.endTime {
+    width: 250px;
+    text-align: right;
+    position: absolute;
+    left: 1641px;
+    top: 970px;
+}
+
+
+
+.body {
+    width: 100%: 
+
+}
+
+.topBody {
+    height: 596px;
+    /*background: red;*/
+    vertical-align: top;
+    margin-bottom: 20px;
+}
+
+
+.activityCards {
+
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 20px;
+    height: 563px;
+    width: 350px;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.videoWindow {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 20px;
+    height: 100%;
+    width: 1060px;
+    background: black; 
+}
+
+.ingredients {
+    vertical-align: top;
+    display: inline-block;
+    height: 563px;
+    width: 350px;
+    padding: 15px;
+}
+
+.bottomBody {
+    height: 230px;
+    /*background: green;*/
+    margin-bottom: 20px;
+}
+
+.previousStep {vertical-align: top;display: inline-block;margin-right: 20px;height: 200px;width: 350px;padding: 15px;vertical-align: top;}
+
+.currentStep {
+    padding: 15px;
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 20px;
+    height: 200px;
+    width: 1030px;
+}
+
+.nextStep {
+    vertical-align: top;
+    display: inline-block;
+    height: 200px;
+    width: 350px;
+    padding: 15px;
+}
+
+.footer {
+    height: 50px;
+    /* background: purple; */
+}
+
+.timer, .tip {
+    text-align: center;
+    width: 80%;
+    background: rgba(200,200,200,0.5);
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.timer  > p {
+    margin-top: 5px;
+    font-size: 40px;
+
+}
+
+.tip > p {
+    margin-top: 5px;
+}
+
+button {
+    margin: 0 auto;
+}
+
+#viewMode {
+    width: 272px;
+    font-size: 25pt;
+    padding: 5px 10px;
+    position: absolute;
+    left: 65px;
+    top: 20px;
+}
+
+#viewMode input {
+    width: 40px;
+    height: 40px;
+}
+
+#viewMode label {
+    vertical-align: top;
+}
+
