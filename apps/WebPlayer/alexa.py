@@ -13,11 +13,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
 from models import Request, User
 
-
 import json
 
-monthsFromServer = []
-user = None;
+session_attributes = {}
+reprompt_text = None
+should_end_session = True
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -64,13 +64,12 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Skills Kit sample. " \
-                    "Please tell me your favorite color by saying, " \
-                    "my favorite color is red"
+    speech_output = "Welcome to the Cooking skills sample! " \
+                    "Please say start recipe to get started" 
+
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "Sorry, I did not understand what you said"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -85,99 +84,13 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
-
-def create_favorite_color_attributes(favorite_color):
-    return {"favoriteColor": favorite_color}
-
-
-def set_color_in_session(intent, session):
-    """ Sets the color in the session and prepares the speech to reply to the
-    user.
-    """
-
-    card_title = intent['name']
-    session_attributes = {}
-    should_end_session = False
-
-    if 'Color' in intent['slots']:
-        favorite_color = intent['slots']['Color']['value']
-        session_attributes = create_favorite_color_attributes(favorite_color)
-        speech_output = "I now know your favorite color is " + \
-                        favorite_color + \
-                        ". You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-        reprompt_text = "You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-    else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "Please try again."
-        reprompt_text = "I'm not sure what your favorite color is. " \
-                        "You can tell me your favorite color by saying, " \
-                        "my favorite color is red."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def get_color_from_session(intent, session):
-    session_attributes = {}
-    reprompt_text = None
-
-    if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
-        favorite_color = session['attributes']['favoriteColor']
-        speech_output = "Your favorite color is " + favorite_color + \
-                        ". Goodbye."
-        should_end_session = True
-    else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "You can say, my favorite color is red."
-        should_end_session = False
-
-    # Setting reprompt_text to None signifies that we do not want to reprompt
-    # the user. If the user does not respond or says something that is not
-    # understood, the session will end.
-    return build_response(session_attributes, build_speechlet_response(
-        intent['name'], speech_output, reprompt_text, should_end_session))
-
-
-def saveToServer(intent, session):
-    session_attributes = {}
-    reprompt_text = None
-
-    if 'month' in intent['slots']:
-        monthIntent = intent['slots']['month']['value']
-        monthsFromServer.append(monthIntent)
-
-    speech_output = "Saved your favorte month to the server." 
-    should_end_session = True
+def newAlexaIntent(command, intent, session):
+    speech_output = "Ok."
+    print (command)
+    Request.objects.create(command = command)
 
     return build_response(session_attributes, build_speechlet_response(
-        intent['name'], speech_output, reprompt_text, should_end_session))
-
-def playVideo(intent, session):
-
-    session_attributes = {}
-    reprompt_text = None
-    speech_output = "Playing video." 
-    should_end_session = True
-
-    Request.objects.create(command = 'play')
-    # Request.objects.create(user = user, command = 'play')
-
-    return build_response(session_attributes, build_speechlet_response(
-        'playing', speech_output, reprompt_text, should_end_session))
-
-def pauseVideo(intent, session):
-
-    session_attributes = {}
-    reprompt_text = None
-    speech_output = "Pausing video." 
-    should_end_session = True
-
-    Request.objects.create(command = 'pause')
-    # Request.objects.create(user = user, command = 'pause')
-
-    return build_response(session_attributes, build_speechlet_response(
-        'paused', speech_output, reprompt_text, should_end_session))
+        'Got command', speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -209,22 +122,14 @@ def on_intent(intent_request, session):
     intent = intent_request['intent']
     intent_name = intent_request['intent']['name']
 
-    # Dispatch to your skill's intent handlers
-    if intent_name == "MyColorIsIntent":
-        return set_color_in_session(intent, session)
-    elif intent_name == "WhatsMyColorIntent":
-        return get_color_from_session(intent, session)    
-    elif intent_name == "PrintToServer":
-        return saveToServer(intent, session)    
-    elif intent_name == "PlayVideo":
-        return playVideo(intent, session)    
-    elif intent_name == "PauseVideo":
-        return pauseVideo(intent, session)
-    elif intent_name == "AMAZON.HelpIntent":
+    if intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
-    else:
+    
+    try:
+        return newAlexaIntent(intent_name, intent, session)
+    except:
         raise ValueError("Invalid intent")
 
 

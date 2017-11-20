@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.decorators.csrf import csrf_exempt
 import json
-from alexa import monthsFromServer
+
 from models import Request, SpectrumBox, Tutorial
 import time
 
@@ -18,11 +18,6 @@ import requests
 def index(request):
     return render(request, 'WebPlayer/index.html')
 
-@csrf_exempt
-def alexa(request):
-    print 'woooohhooooo'
-    return HttpResponse({'response' : 'test'})
-
 def health(request):
     return HttpResponse(status = 200)
 
@@ -34,13 +29,6 @@ def updates(request):
         return HttpResponse(lastCommand)
     else:
         return HttpResponse(None)
-
-def showAlexa(request):
-    print monthsFromServer
-    context = {
-        'months' : monthsFromServer
-    }
-    return render(request, 'WebPlayer/alexa.html', context)
 
 def boxStatus(request):
     url = "http://spectrumbox.ngrok.io"
@@ -63,12 +51,11 @@ def newBoxOnline(request):
     
     return HttpResponse('thanks for letting me know!')
 
-def openBrowser(request):
-    url = "http://spectrumbox.ngrok.io/openBrowser"
-    r = requests.post(url2)
-
-    return HttpResponse(status = 200)
-
+def tutorials(request):
+    context = {
+        'tutorials' : Tutorial.objects.all()
+    }
+    return render(request, 'WebPlayer/tutorials.html', context)
 
 
 def cooking(request, id):

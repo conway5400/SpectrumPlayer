@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends "./base.html" %}
+{% block title %}WebPlayer{% endblock %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tutorial in tutorials %}
+                <tr>
+                    <td><a href="./cooking/{{tutorial.id}}">{{ tutorial.name }}</a></td>
+                    <td><a href="./api/tutorials/delete/{{tutorial.id}}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- <script src="{% static 'js/script.js' %}"></script> -->
+
+{% endblock %}

@@ -67,15 +67,21 @@ class Tutorial(models.Model):
     video = models.CharField(max_length=255)
     duration = models.IntegerField()
 
-class Step(models.Model):
-    tutorial = models.ForeignKey(Tutorial, related_name = 'steps')
+class Action(models.Model):
+    tutorial = models.ForeignKey(Tutorial, related_name = 'actions')
     timestamp = models.IntegerField()
     action = models.CharField(max_length = 100)
-    stepNumber = models.IntegerField()
     content = models.CharField(max_length = 255)
+
+class Step(models.Model):
+    tutorial = models.ForeignKey(Tutorial, related_name = 'steps')
+    startTime = models.IntegerField()
+    stepNumber = models.IntegerField()
     shortDesc = models.CharField(max_length = 255)
     longDesc = models.CharField(max_length = 255)
 
 class Ingredient(models.Model):
-    name = models.CharField
+    step = models.ForeignKey(Step, related_name = 'ingredients', blank=True, null=True)
+    name = models.CharField(max_length = 255)
+    descr = models.CharField(max_length = 255)
     tutorial = models.ForeignKey(Tutorial, related_name = 'ingredients')

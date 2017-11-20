@@ -1,7 +1,7 @@
 body{ 
     background: aliceblue;
     font-family: Arial;
-    background-image: url(http://www.muswellhillmums.com/wp-content/uploads/sites/7/2016/02/Lanscape-7.jpg);
+    /*background-image: url(http://www.muswellhillmums.com/wp-content/uploads/sites/7/2016/02/Lanscape-7.jpg);*/
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;

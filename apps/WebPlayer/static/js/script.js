@@ -1,6 +1,6 @@
 console.log("You are connected!")
 
-var url = "https://dash.edgesuite.net/envivio/Envivio-dash2/manifest.mpd";
+var url = "https://d34j7w7zsvll58.cloudfront.net/media/655894_bde292f2d4137c0f0abb8b611622b976/655894.mpd";
 var element = document.querySelector("#player")
 var player = dashjs.MediaPlayer().create();
 var checkForUpdates = true;

@@ -8,21 +8,34 @@
 
 <div class="container">
     <div class="header">
+        <div id="viewMode" class="card">
+            <label class="switch">
+                <label for="viewModeSwitch">Preview Mode</label>
+                <input type="checkbox" name="viewModeSwitch" id="viewModeSwitch">
+            </label>
+        </div>
         <div class="title">
-            <h1>You're cooking {{ results.name }}!</h1>   
+            <h1><span id="recipeName"></span></h1>   
         </div>
         <div class="currentTime">
-            <h1>5:30PM</h1>
+            <!-- <h1>5:30PM</h1> -->
         </div>
     </div>
     <div class="body">
         <div class="topBody">
             <div class="activityCards card">
                 <h2>Activity Cards</h2>
+                <button id="startRecipe">Start Recipe</button>
+                <button id="stopRecipe">Stop Recipe</button>
+                <button id="pauseRecipe">Pause Recipe</button>
+                <button id="resumeRecipe">Resume Recipe</button>
+                <button id="previousStep">Previous Step</button>
+                <button id="restartStep">Restart Step</button>
+                <button id="nextStep">Next Step</button>
             </div>
-            <div class="videoWindow card">
-                <video id="player"></video>
-            </div>
+            <!-- <div class="videoWindow card"> -->
+                <video  class="videoWindow card" id="player"></video>
+            <!-- </div> -->
             <div class="ingredients card">
                 <h2>Ingredients</h2>
             </div>
@@ -44,21 +57,22 @@
         </div>
     </div>
     <div class="footer">
-        <div class="title">
-            <h1>Progress Meter: Prepping ... Cooking ... Serving</h1>   
+        <div id="progressBar" class="title">
+            <h1>Step #<span id="currentStepNumber"></span> of <span id="lastStepNumber"></span></h1>   
         </div>
         <div class="endTime">
-            <h1>6:30PM</h1>
+            <!-- <h1>6:30PM</h1> -->
         </div>
     </div>    
 </div>
 
-<script src="{% static 'js/cooking.js' %}"></script>
+<!-- Load cooking scripts and helper functions -->
+<script src="{% static 'js/cookingHelpers.js' %}"></script>
+<script src="{% static 'js/cookingLogic.js' %}"></script>
 
+<!-- once all loaded, pass tutorial to script -->
 <script type="text/javascript">
-    
     setTutorialId({{ results.id }})
-
 </script>
 
 {% endblock %}
