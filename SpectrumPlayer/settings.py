@@ -26,7 +26,7 @@ SECRET_KEY = 'id1u(_lx1gx5-^rd(c51a0d$sxuzs7fcwvkxiij(2ci4dx7g$d'
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['spectrumplayer.xtasq3pqsv.us-west-2.elasticbeanstalk.com']
 # ALLOWED_HOSTS = ['www.conwaysolomon.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
